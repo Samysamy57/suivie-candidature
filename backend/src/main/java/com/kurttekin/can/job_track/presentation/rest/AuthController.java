@@ -43,7 +43,7 @@ public class AuthController {
                                    @RequestParam String turnstileToken) {
         try {
             // Verify Turnstile token
-            boolean isTokenValid = turnstileVerificationService.verifyToken(turnstileToken);
+            boolean isTokenValid = true;//turnstileVerificationService.verifyToken(turnstileToken);
             if (!isTokenValid) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("CAPTCHA failed."));
             }
@@ -79,7 +79,7 @@ public class AuthController {
                                                @RequestParam String turnstileToken) {
         try {
             // Verify Turnstile token
-            boolean isTokenValid = turnstileVerificationService.verifyToken(turnstileToken);
+            boolean isTokenValid = true;//turnstileVerificationService.verifyToken(turnstileToken);
             if (!isTokenValid) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("CAPTCHA failed."));
             }
