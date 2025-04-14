@@ -1,18 +1,21 @@
 package com.kurttekin.can.job_track.presentation.rest;
 
-import com.kurttekin.can.job_track.application.dto.ErrorResponse;
-import com.kurttekin.can.job_track.application.dto.JwtResponse;
-import com.kurttekin.can.job_track.application.dto.LoginRequest;
-import com.kurttekin.can.job_track.application.dto.UserRegistrationRequest;
-import com.kurttekin.can.job_track.application.service.EmailService;
-import com.kurttekin.can.job_track.application.service.TurnstileVerificationService;
-import com.kurttekin.can.job_track.domain.model.user.User;
-import com.kurttekin.can.job_track.domain.service.UserService;
-import com.kurttekin.can.job_track.infrastructure.security.jwt.JwtProvider;
+import java.util.Objects;
+import java.util.Optional;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyString;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,12 +25,15 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 
-import java.util.Objects;
-import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.*;
+import com.kurttekin.can.job_track.application.dto.ErrorResponse;
+import com.kurttekin.can.job_track.application.dto.JwtResponse;
+import com.kurttekin.can.job_track.application.dto.LoginRequest;
+import com.kurttekin.can.job_track.application.dto.UserRegistrationRequest;
+import com.kurttekin.can.job_track.application.service.EmailService;
+import com.kurttekin.can.job_track.application.service.TurnstileVerificationService;
+import com.kurttekin.can.job_track.domain.model.user.User;
+import com.kurttekin.can.job_track.domain.service.UserService;
+import com.kurttekin.can.job_track.infrastructure.security.jwt.JwtProvider;
 
 class AuthControllerTest {
 
@@ -106,7 +112,7 @@ class AuthControllerTest {
     public void testLogin_CAPTCHAFailed() {
         when(turnstileVerificationService.verifyToken(turnstileToken)).thenReturn(false);
 
-        ResponseEntity<?> response = authController.login(loginRequest, turnstileToken);
+        ResponseEntity<?> response = authController.login(loginRequest);
         assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
         assertEquals("CAPTCHA failed.", ((ErrorResponse) Objects.requireNonNull(response.getBody())).getMessage());
     }
