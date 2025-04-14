@@ -1,0 +1,208 @@
+.home-container {
+    display: flex; /* Use flexbox */
+    flex-direction: column; /* Stack children vertically */
+    justify-content: space-between; /* Space between header and footer */
+    min-height: 100vh; /* Ensure it occupies the full height of the viewport */
+    text-align: center;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.header-container {
+    display: flex;
+    flex-wrap: wrap; /* Allows stacking on smaller screens */
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.left-column {
+    flex: 1;
+    max-width: 300px;
+    padding: 10px;
+    text-align: center;
+    margin-right: 20px;
+}
+
+.right-column {
+    flex: 1;
+    max-width: 400px;
+    padding: 10px;
+    margin: 20px;
+    text-align: center;
+}
+
+.big-text {
+    font-size: 2.2em;
+    margin: 10px 0;
+    text-align: left;
+}
+
+.big-text2 {
+    font-size: 1.5em;
+    color: #666;
+    text-align: left;
+}
+
+.support-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 20px;
+    color: #666;
+    text-align: center; /* Center-align text in the container */
+    flex-wrap: wrap; /* Allow wrapping */
+}
+
+.support-container p {
+    max-width: 600px;
+    margin: 0;
+    padding-left: 10px; /* Space between text and button */
+}
+
+/* Media query for small devices */
+@media (max-width: 768px) {
+
+    .big-text {
+        font-size: 1.8em;
+    }
+
+    .big-text2 {
+        font-size: 1em;
+    }
+
+    .illustrations-container {
+        flex-direction: column; /* Stack illustrations vertically */
+        align-items: center;
+    }
+
+    .illustration-item {
+        margin: 2px 0;
+    }
+
+    .support-container {
+        flex-direction: column;
+        text-align: center;
+        scale: 0.8;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .register-button {
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-container {
+        margin-top: 20px;
+    }
+
+    .big-text {
+        font-size: 1.6em;
+    }
+
+    .big-text2 {
+        font-size: 1em;
+    }
+}
+
+/* Illustration styling */
+.illustrations-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /*gap: 20px;  Adds spacing between items */
+    margin: 10px;
+}
+
+.illustration-item {
+    flex: 1 1 200px; /* Flexible width, minimum size */
+    max-width: 250px;
+    text-align: center;
+}
+
+.illustration {
+    width: 56%;
+    height: auto;
+}
+
+.illustration-text {
+    font-size: 1em;
+    font-weight: bold;
+    padding: 10px;
+}
+
+/* Footer adjustments */
+.footer {
+    font-size: 0.8em;
+    color: #f5f5f5;
+    text-align: center;
+    padding: 10px;
+    padding-top: 20px;
+    background-color: black;
+    margin: -40px;
+}
+
+.separator {
+    scale: 0.6;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #333;
+}
+
+a:hover {
+    color: #555;
+}
+
+.screenshot-section {
+    display: flex;
+    align-items: center; /* Align items to the start */
+    margin: 16px;
+    text-align: left;
+}
+
+.screenshot-container {
+    flex: 1; /* Allow the screenshot to take space */
+    max-width: 100%; /* Control the maximum width */
+    margin-right: 2px; /* Space between image and text */
+}
+
+/* Screenshot styling */
+.screenshot {
+    width: 90%; /* Full width within its container */
+    height: auto;
+}
+
+/* Text container */
+.screenshot-text {
+    flex: 1; /* Allow text to take remaining space */
+    max-width: 70%; /* Control the maximum width */
+}
+
+@media (max-width: 768px) {
+    .screenshot-section {
+        flex-direction: column; /* Stack elements vertically on small screens */
+        align-items: center; /* Center items */
+        text-align: center; /* Center text */
+    }
+
+    .screenshot-container {
+        max-width: 100%; /* Full width on small screens */
+        margin: 0 0 20px 0; /* Space below the image */
+        transform: translateX(-140%); /* Shift image left by 25% */
+    }
+
+    .screenshot {
+        width: 250%; /* Increase width to maintain visibility */
+        height: auto;
+    }
+
+    .screenshot-text {
+        max-width: 100%; /* Full width on small screens */
+    }
+}
