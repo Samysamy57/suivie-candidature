@@ -79,7 +79,7 @@ class AuthControllerTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class))).thenReturn(authentication);
         when(jwtProvider.generateToken(authentication)).thenReturn("jwtToken");
 
-        ResponseEntity<?> response = authController.login(loginRequest, turnstileToken);
+        ResponseEntity<?> response = authController.login(loginRequest);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals("jwtToken", ((JwtResponse) Objects.requireNonNull(response.getBody())).getToken());
     }
@@ -93,7 +93,7 @@ class AuthControllerTest {
         when(authenticationManager.authenticate(any(UsernamePasswordAuthenticationToken.class)))
                 .thenThrow(new BadCredentialsException("Invalid credentials"));
 
-        ResponseEntity<?> response = authController.login(loginRequest, turnstileToken);
+        ResponseEntity<?> response = authController.login(loginRequest);
 
         assertEquals(HttpStatus.UNAUTHORIZED, response.getStatusCode());
         assertEquals("Invalid credentials", response.getBody());
@@ -119,7 +119,7 @@ class AuthControllerTest {
         user.setVerified(false);
 
         when(userService.findUserByUsername(loginRequest.getUsername())).thenReturn(Optional.of(user));
-        ResponseEntity<?> response = authController.login(loginRequest, turnstileToken);
+        ResponseEntity<?> response = authController.login(loginRequest);
 
         assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
         assertEquals("Email not verified. Please verify your email before logging in.", ((ErrorResponse) Objects.requireNonNull(response.getBody())).getMessage());
@@ -138,7 +138,7 @@ class AuthControllerTest {
         when(turnstileVerificationService.verifyToken(turnstileToken)).thenReturn(true);
 
         // Call the registerUser method in the controller
-        ResponseEntity<?> response = authController.registerUser(userRegistrationRequest, turnstileToken);
+        ResponseEntity<?> response = authController.registerUser(userRegistrationRequest);
 
         // Check the status and response body
         assertEquals(HttpStatus.OK, response.getStatusCode());
@@ -149,7 +149,7 @@ class AuthControllerTest {
     public void testRegisterUser_CAPTCHAFailed() {
         when(turnstileVerificationService.verifyToken(turnstileToken)).thenReturn(false);
 
-        ResponseEntity<?> response = authController.registerUser(userRegistrationRequest, turnstileToken);
+        ResponseEntity<?> response = authController.registerUser(userRegistrationRequest);
         assertEquals(HttpStatus.FORBIDDEN, response.getStatusCode());
         assertEquals("CAPTCHA failed.", ((ErrorResponse) Objects.requireNonNull(response.getBody())).getMessage());
     }
@@ -159,7 +159,7 @@ class AuthControllerTest {
         when(turnstileVerificationService.verifyToken(turnstileToken)).thenReturn(true);
         doThrow(new RuntimeException("Email already exists")).when(userService).registerUser(any(UserRegistrationRequest.class));
 
-        ResponseEntity<?> response = authController.registerUser(userRegistrationRequest, turnstileToken);
+        ResponseEntity<?> response = authController.registerUser(userRegistrationRequest);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("Email already exists", response.getBody());
@@ -172,7 +172,7 @@ class AuthControllerTest {
 
         when(turnstileVerificationService.verifyToken(turnstileToken)).thenReturn(true);
 
-        ResponseEntity<?> response = authController.registerUser(userRegistrationRequest, turnstileToken);
+        ResponseEntity<?> response = authController.registerUser(userRegistrationRequest);
 
         assertEquals(HttpStatus.BAD_REQUEST, response.getStatusCode());
         assertEquals("Registration failed", response.getBody());
