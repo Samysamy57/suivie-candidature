@@ -45,11 +45,10 @@ public class AuthController {
     private TurnstileVerificationService turnstileVerificationService;
 
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest,
-                                   @RequestParam String turnstileToken) {
+    public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
         try {
             // Verify Turnstile token
-            boolean isTokenValid = turnstileVerificationService.verifyToken(turnstileToken);
+            boolean isTokenValid = true;//turnstileVerificationService.verifyToken(turnstileToken);
             if (!isTokenValid) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("CAPTCHA failed."));
             }
@@ -81,11 +80,10 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest userRequest,
-                                               @RequestParam String turnstileToken) {
+    public ResponseEntity<?> registerUser(@RequestBody UserRegistrationRequest userRequest) {
         try {
             // Verify Turnstile token
-            boolean isTokenValid = turnstileVerificationService.verifyToken(turnstileToken);
+            boolean isTokenValid = true; //turnstileVerificationService.verifyToken(turnstileToken);
             if (!isTokenValid) {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(new ErrorResponse("CAPTCHA failed."));
             }
