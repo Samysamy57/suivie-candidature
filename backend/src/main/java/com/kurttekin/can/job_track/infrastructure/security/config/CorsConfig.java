@@ -1,6 +1,7 @@
 package com.kurttekin.can.job_track.infrastructure.security.config;
 
-import lombok.extern.slf4j.Slf4j;
+import java.util.Arrays;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -8,13 +9,13 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-import java.util.Arrays;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Configuration
 public class CorsConfig {
 
-    @Value("${ALLOWED_ORIGINS:http://localhost:3000}")
+    @Value("${ALLOWED_ORIGINS:https://suivie-candidature.vercel.app}")
     private String allowedOrigins;
 
     @Bean
