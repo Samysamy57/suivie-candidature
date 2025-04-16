@@ -70,7 +70,7 @@ const Login = () => {
     // }
 
     try {
-      await login(username, password, turnstileToken); // Call the login function
+      await login(username, password, true); // Call the login function
       navigate('/job-applications'); // Redirect after successful login
     } catch (error) {
       setError(error.message); // Set the error message

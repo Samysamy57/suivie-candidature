@@ -131,7 +131,7 @@ const Register = () => {
         // }
 
         try {
-            await registerService(username, email, password, turnstileToken); // Call the register function
+            await registerService(username, email, password, true); // Call the register function
             setError('Registration successful. Please verify your email before logging in.');
             setTimeout(() => navigate('/login'), 1500); // Redirect after 1.5 seconds
         } catch (err) {
