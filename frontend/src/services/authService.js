@@ -32,10 +32,13 @@ export const login = async (username, password, turnstileToken) => {
     }
   }
 };
+  export const register = async (username, email, password, turnstileToken) => {
+    return axios.post(`${REACT_APP_BACKEND_URL}/auth/register`, { username, email, password });
+  };
 
-export const register = async (username, email, password, turnstileToken) => {
-  return axios.post(`${REACT_APP_BACKEND_URL}/auth/register?turnstileToken=${turnstileToken}`, { username, email, password });
-};
+// export const register = async (username, email, password, turnstileToken) => {
+//   return axios.post(`${REACT_APP_BACKEND_URL}/auth/register?turnstileToken=${turnstileToken}`, { username, email, password });
+// };
 
 export const logout = () => {
   localStorage.removeItem("token");
