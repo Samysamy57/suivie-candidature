@@ -64,10 +64,10 @@ const Login = () => {
       return;
     }
 
-    if (!turnstileToken) {
-      setError("Please complete the CAPTCHA.");
-      return;
-    }
+    // if (!turnstileToken) {
+    //   setError("Please complete the CAPTCHA.");
+    //   return;
+    // }
 
     try {
       await login(username, password, turnstileToken); // Call the login function

@@ -125,10 +125,10 @@ const Register = () => {
             return;
         }
 
-        if (!turnstileToken) {
-            setError("Please complete the CAPTCHA.");
-            return;
-        }
+        // if (!turnstileToken) {
+        //     setError("Please complete the CAPTCHA.");
+        //     return;
+        // }
 
         try {
             await registerService(username, email, password, turnstileToken); // Call the register function
